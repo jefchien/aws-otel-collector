@@ -1,0 +1,1 @@
+{"testcase":"otlp_mock","instanceType":"m5.2xlarge","receivers":["otlp"],"processors":["batch"],"exporters":["awsxray"],"dataType":"otlp","dataMode":"trace","dataRate":100,"avgCpu":4.070002879140718,"avgMem":70.17970346666667,"maxCpu":4.5009468457340125,"maxMem":70.967296,"commitId":"4ea583891bef3dde88c6790328acdbdc1a7a2874","collectionPeriod":10,"testingAmi":"soaking_linux"}

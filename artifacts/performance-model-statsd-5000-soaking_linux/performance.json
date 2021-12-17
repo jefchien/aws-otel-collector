@@ -1,0 +1,1 @@
+{"testcase":"statsd","instanceType":"m5.2xlarge","receivers":["statsd"],"processors":[],"exporters":["awsemf","logging"],"dataType":"statsd","dataMode":"metric","dataRate":5000,"avgCpu":25.814285261081857,"avgMem":67.39712,"maxCpu":27.00536788397966,"maxMem":67.702784,"commitId":"4ea583891bef3dde88c6790328acdbdc1a7a2874","collectionPeriod":10,"testingAmi":"soaking_linux"}
