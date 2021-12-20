@@ -3,8 +3,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes" />
-    <link rel="shortcut icon" type="image/png" href="{{ 'assets/images/favicon-32x32.png' | absolute_url }}">
+    <link rel="shortcut icon" type="image/png" href="/aws-otel-collector/assets/images/favicon-32x32.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous">
+    <link rel="stylesheet" href="/aws-otel-collector/assets/css/style.css?v=" crossorigin="anonymous">
     <style>
       html {
         font-family: BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -14,14 +15,8 @@
       }
       body {
         color: #4a4a4a;
-        margin: 8px;
         font-size: 1em;
         font-weight: 400;
-      }
-      header {
-        margin-bottom: 8px;
-        display: flex;
-        flex-direction: column;
       }
       main {
         width: 100%;
@@ -54,12 +49,9 @@
         font-size: 0.75rem;
       }
       footer {
-        margin-top: 16px;
+        margin: 16px 8px 0px;
         display: flex;
         align-items: center;
-      }
-      .header-label {
-        margin-right: 4px;
       }
       .benchmark-set {
         margin: 8px 0;
@@ -68,8 +60,16 @@
         flex-direction: column;
       }
       .benchmark-title {
-        font-size: 3rem;
+        font-size: 1.5em;
         font-weight: 600;
+        word-break: break-word;
+        text-align: center;
+      }
+      .benchmark-timestamp .label {
+        margin-right: 4px;
+      }
+      .benchmark-timestamp {
+        font-size: 1em;
         word-break: break-word;
         text-align: center;
       }
@@ -85,42 +85,42 @@
         max-width: 1000px;
       }
     </style>
-    <title>Benchmarks</title>
+    <title>Performance Trend | aws-otel-collector</title>
   </head>
 
   <body>
     <header class="page-header" role="banner">
       <div class="header-block">
         <div class="logo">
-          <a href="{{ '/' | absolute_url }}">
-            <img src="{{ 'assets/images/adot-logo.png' | absolute_url }}">
+          <a href="/aws-otel-collector">
+            <img src="/aws-otel-collector/assets/images/adot-logo.png">
           </a>
         </div>
         <div class="header-links">
           <ul>
             <li>
-              <a href="{{ '/' | absolute_url }}">
+              <a href="/aws-otel-collector">
                 <button class="header-button">
                   <span><i class="fa-solid fa-house"></i><span>Home</span></span>
                 </button>
               </a>
             </li>
             <li>
-              <a href="{{ '/benchmark/report' | absolute_url }}">
+              <a href="/aws-otel-collector/benchmark/report">
                 <button class="header-button">
                   <span><i class="fa-solid fa-hourglass"></i><span>Performance Report</span></span>
                 </button>
               </a>
             </li>
             <li>
-              <a href="{{ '/benchmark/trend' | absolute_url }}">
+              <a href="/aws-otel-collector/benchmark/trend">
                 <button class="header-button">
                   <span><i class="fa-solid fa-arrow-trend-up"></i><span>Performance Trend</span></span>
                 </button>
               </a>
             </li>
             <li>
-              <a href="{{ site.github.repository_url }}">
+              <a id="repository-link">
                 <button class="header-button">
                   <span><i class="fa-solid fa-code"></i><span>Code on Github</span></span>
                 </button>
@@ -130,16 +130,11 @@
         </div>
       </div>
     </header>
-    <header id="header">
-      <div class="header-item">
-        <strong class="header-label">Last Update:</strong>
-        <span id="last-update"></span>
-      </div>
-      <div class="header-item">
-        <strong class="header-label">Repository:</strong>
-        <a id="repository-link" rel="noopener"></a>
-      </div>
-    </header>
+    <h2 class="benchmark-title">Performance Trend</h2>
+    <div class="benchmark-timestamp">
+      <strong class="label">Last Updated:</strong>
+      <span id="last-update"></span>
+    </div>
     <main id="main"></main>
     <footer>
       <button id="dl-button">Download data as JSON</button>
@@ -147,7 +142,7 @@
       <div class="small">Powered by <a rel="noopener" href="https://github.com/marketplace/actions/continuous-benchmark">github-action-benchmark</a></div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.2/Chart.min.js" integrity="sha512-uWTfEVcTAr+NF8RnQix39Vnfd93celVTAjU2pi4LpdrsPLeLg5RYywi5rw9oF8oCQaJ6b2YPALceNbf3kfDJaA==" crossorigin="anonymous"></script>
     <script src="data.js"></script>
     <script id="main-script">
       'use strict';
@@ -190,7 +185,6 @@
           document.getElementById('last-update').textContent = new Date(data.lastUpdate).toString();
           const repoLink = document.getElementById('repository-link');
           repoLink.href = data.repoUrl;
-          repoLink.textContent = data.repoUrl;
 
           // Render footer
           document.getElementById('dl-button').onclick = () => {
@@ -254,21 +248,21 @@
                   afterTitle: items => {
                     const {index} = items[0];
                     const data = dataset[index];
-                    return '\n' + data.commit.message + '\n\n' + data.commit.timestamp + ' committed by @' + data.commit.committer.username + '\n';
+                    return '\n' + data.commit.message + '\n\n' + data.commit.timestamp + ' committed by @' + data.commit.author.username + '\n';
                   },
                   label: item => {
                     let label = item.value;
                     const { range, unit } = dataset[item.index].bench;
-                    label += ' ' + unit;
+                    label += unit;
                     if (range) {
                       label += ' (' + range + ')';
                     }
                     return label;
                   },
-                  afterLabel: item => {
-                    const { extra } = dataset[item.index].bench;
-                    return extra ? '\n' + extra : '';
-                  }
+                  // afterLabel: item => {
+                  //   const { extra } = dataset[item.index].bench;
+                  //   return extra ? '\n' + extra : '';
+                  // }
                 }
               },
               onClick: (_mouseEvent, activeElems) => {
@@ -289,15 +283,20 @@
             });
           }
 
-          function renderBenchSet(name, benchSet, main) {
+          function renderBenchSet(benchSet, main) {
             const setElem = document.createElement('div');
             setElem.className = 'benchmark-set';
             main.appendChild(setElem);
 
-            const nameElem = document.createElement('h1');
-            nameElem.className = 'benchmark-title';
-            nameElem.textContent = name;
-            setElem.appendChild(nameElem);
+            // const nameElem = document.createElement('h2');
+            // nameElem.className = 'benchmark-title';
+            // nameElem.textContent = name;
+            // setElem.appendChild(nameElem);
+            //
+            // const lastUpdatedElem = document.createElement('div');
+            // lastUpdatedElem.className = 'benchmark-timestamp';
+            // lastUpdatedElem.textContent = new Date(lastUpdate).toString();
+            // setElem.appendChild(lastUpdatedElem);
 
             const graphsElem = document.createElement('div');
             graphsElem.className = 'benchmark-graphs';
@@ -309,8 +308,8 @@
           }
 
           const main = document.getElementById('main');
-          for (const {name, dataSet} of dataSets) {
-            renderBenchSet(name, dataSet, main);
+          for (const {dataSet} of dataSets) {
+            renderBenchSet(dataSet, main);
           }
         }
 
