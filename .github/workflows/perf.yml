@@ -43,7 +43,7 @@ jobs:
         run: pip install Jinja2
           
       - name: Produce performance report
-        run: python e2etest/get-performance-model-table.py v0.15.1
+        run: python e2etest/get-performance-model-table.py -v v0.15.1
 
       - name: Store benchmark result
         uses: jefchien/github-action-benchmark@v1.11.12-alpha2
