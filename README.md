@@ -5,18 +5,18 @@
 
 ### Overview
 
-AWS Distro for OpenTelemetry Collector (AWS OTel Collector) is an AWS supported version of the upstream OpenTelemetry Collector and is distributed by Amazon. It supports the selected components from the OpenTelemetry community. It is fully compatible with AWS computing platforms including EC2, ECS and EKS. It enables users to send telemetry data to AWS CloudWatch Metrics, Traces and Logs backends as well as the other supported backends.
+AWS Distro for OpenTelemetry Collector (AWS OTel Collector) is an AWS supported version of the upstream OpenTelemetry Collector and is distributed by Amazon. It supports the selected components from the OpenTelemetry community. It is fully compatible with AWS computing platforms including EC2, ECS, and EKS. It enables users to send telemetry data to AWS CloudWatch Metrics, Traces, and Logs backends as well as the other supported backends.
 
 See the [AWS Distro for OpenTelemetry documentation](https://aws-otel.github.io/docs/getting-started/collector) for more information.
 
 ### Getting Help
 
 Use the community resources below for getting help with AWS OTel Collector.
-* Use [GitHub issues](https://github.com/aws-observability/aws-otel-collector/issues) for reporting bugs and requesting features.
-* Join our GitHub [Community](https://github.com/aws-observability/aws-otel-community) for AWS Distro for OpenTelemetry to ask your questions, file issues, request enhancements.
+* Use [GitHub issues](https://github.com/aws-observability/aws-otel-collector/issues) to report bugs and request features.
+* Join our GitHub [Community](https://github.com/aws-observability/aws-otel-community) for AWS Distro for OpenTelemetry to ask your questions, file issues, or request enhancements.
 * Open a support ticket with [AWS Support](http://docs.aws.amazon.com/awssupport/latest/user/getting-started.html).
-* If you think you may have found a bug, open an [issue](https://github.com/aws-observability/aws-otel-collector/issues/new).
-* For contributing guidelines refer [CONTRIBUTING.md](https://github.com/aws-observability/aws-otel-collector/blob/main/CONTRIBUTING.md).
+* If you think you may have found a bug, open a [bug report](https://github.com/aws-observability/aws-otel-collector/issues/new?template=bug_report.md).
+* For contributing guidelines, refer to [CONTRIBUTING.md](CONTRIBUTING.md).
 
 #### AWS OTel Collector Built-in Components
 
@@ -63,34 +63,40 @@ so you can customize or port your OpenTelemetry Collector configuration files wh
 
 #### Try out AWS OTel Collector
 
-AWS OTel Collector supports all AWS computing platforms and docker/kubernetes. Here are some examples on how to run AWS OTel Collector to send telemetry data:
+AWS OTel Collector supports all AWS computing platforms and Docker/Kubernetes. Here are some examples on how to run AWS OTel Collector to send telemetry data:
 
-* [Run it with Docker](https://github.com/aws-observability/aws-otel-collector/blob/main/docs/developers/docker-demo.md)
-* [Run it with ECS](https://github.com/aws-observability/aws-otel-collector/blob/main/docs/developers/ecs-demo.md)
-* [Run it with EKS](https://github.com/aws-observability/aws-otel-collector/blob/main/docs/developers/eks-demo.md)
-* [Run it on AWS Linux EC2](https://github.com/aws-observability/aws-otel-collector/blob/main/docs/developers/linux-rpm-demo.md)
-* [Run it on AWS Windows EC2](https://github.com/aws-observability/aws-otel-collector/blob/main/docs/developers/windows-other-demo.md)
-* [Run it on AWS Debian EC2](https://github.com/aws-observability/aws-otel-collector/blob/main/docs/developers/debian-deb-demo.md)
+* [Run it with Docker](docs/developers/docker-demo.md)
+* [Run it with ECS](docs/developers/ecs-demo.md)
+* [Run it with EKS](docs/developers/eks-demo.md)
+* [Run it on AWS Linux EC2](docs/developers/linux-rpm-demo.md)
+* [Run it on AWS Windows EC2](docs/developers/windows-other-demo.md)
+* [Run it on AWS Debian EC2](docs/developers/debian-deb-demo.md)
 
 #### Build Your Own Artifacts
 
 Use the following instructions to build your own AWS OTel Collector artifacts:
 
-* [Build Docker Image](https://github.com/aws-observability/aws-otel-collector/blob/main/docs/developers/build-docker.md)
-* [Build RPM/Deb/MSI](https://github.com/aws-observability/aws-otel-collector/blob/main/docs/developers/build-aoc.md)
+* [Build Docker Image](docs/developers/build-docker.md)
+* [Build RPM/Deb/MSI](docs/developers/build-aoc.md)
 
 ### Development
 
-See [docs/developers](https://github.com/aws-observability/aws-otel-collector/blob/main/docs/developers/README.md)
+See [docs/developers](docs/developers/README.md)
 
 ### Release Process
 
-* [Release new version](https://github.com/aws-observability/aws-otel-collector/blob/main/RELEASING.md)
+See [RELEASING.md](RELEASING.md) for release steps.
 
 ### Benchmark
 
-The latest performance model result is [here](benchmark/report).
+The latest performance report is [here](https://aws-observability.github.io/aws-otel-collector/benchmark/report), while the trends by testcase can be found [here](https://aws-observability.github.io/aws-otel-collector/benchmark/trend).
+Both are updated on each successful CI run. The charts use the [github-action-benchmark](https://github.com/benchmark-action/github-action-benchmark) action and uses a modified layout to group the testcases.
 The performance test can be conducted by following the [instructions](https://github.com/aws-observability/aws-otel-test-framework/blob/terraform/docs/get-performance-model.md) here.
+
+### Support
+
+For each merged pull request, a corresponding image is pushed to [public.ecr.aws/aws-otel-test/adot-collector-integration-test](https://gallery.ecr.aws/aws-otel-test/adot-collector-integration-test).
+This image is used for the integration tests. You can pull any of the images from there, however, we will not support any issues and pull requests for these test images.
 
 ### License
 
